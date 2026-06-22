@@ -1,0 +1,262 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  ADMIN
+  STRATEGY_LEAD
+  SCOUT
+  VIEWER
+}
+
+enum AllianceColor {
+  RED
+  BLUE
+}
+
+enum MatchLevel {
+  PRACTICE
+  QUALIFICATION
+  PLAYOFF
+  FINAL
+}
+
+model User {
+  id          String            @id @default(cuid())
+  email       String            @unique
+  name        String
+  role        UserRole          @default(SCOUT)
+  assignments ScoutAssignment[]
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+}
+
+model Event {
+  id          String            @id @default(cuid())
+  key         String            @unique
+  name        String
+  location    String
+  startsAt    DateTime
+  endsAt      DateTime
+  gameConfig  GameConfig?
+  matches     Match[]
+  teams       EventTeam[]
+  metrics     TeamMetric[]
+  picklists   Picklist[]
+  strategies  StrategyPlan[]
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+}
+
+model Team {
+  id              String          @id @default(cuid())
+  number          Int             @unique
+  name            String
+  city            String?
+  state           String?
+  country         String?
+  eventTeams      EventTeam[]
+  pitEntries      PitScoutEntry[]
+  metrics         TeamMetric[]
+  robotPhotos     RobotPhoto[]
+  matchEntries    MatchScoutEntry[]
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+}
+
+model EventTeam {
+  eventId String
+  teamId  String
+  seed    Int?
+  event   Event  @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  team    Team   @relation(fields: [teamId], references: [id], onDelete: Cascade)
+
+  @@id([eventId, teamId])
+}
+
+model Match {
+  id          String            @id @default(cuid())
+  eventId     String
+  matchNumber Int
+  level       MatchLevel        @default(QUALIFICATION)
+  scheduledAt DateTime?
+  redScore    Int?
+  blueScore   Int?
+  event       Event             @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  alliances   Alliance[]
+  assignments ScoutAssignment[]
+  entries     MatchScoutEntry[]
+
+  @@unique([eventId, level, matchNumber])
+}
+
+model Alliance {
+  id      String        @id @default(cuid())
+  matchId String
+  color   AllianceColor
+  team1   Int
+  team2   Int
+  team3   Int
+  match   Match         @relation(fields: [matchId], references: [id], onDelete: Cascade)
+
+  @@unique([matchId, color])
+}
+
+model ScoutAssignment {
+  id        String   @id @default(cuid())
+  eventId   String
+  matchId   String
+  teamId    String
+  scoutId   String
+  station   String
+  completed Boolean  @default(false)
+  match     Match    @relation(fields: [matchId], references: [id], onDelete: Cascade)
+  scout     User     @relation(fields: [scoutId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@unique([matchId, teamId])
+}
+
+model MatchScoutEntry {
+  id                String   @id @default(cuid())
+  eventId           String
+  matchId           String
+  teamId            String
+  scoutId           String?
+  alliance          AllianceColor
+  station           String
+  autoFuelMade      Int      @default(0)
+  autoFuelAttempted Int      @default(0)
+  teleFuelMade      Int      @default(0)
+  teleFuelAttempted Int      @default(0)
+  hubAccuracy       Float    @default(0)
+  intakeSource      String
+  cycleTimes        Json
+  towerClimbLevel   String
+  climbSuccess      Boolean  @default(false)
+  defenseRating     Int      @default(0)
+  driverSkill       Int      @default(0)
+  penalties         Int      @default(0)
+  fouls             Int      @default(0)
+  disabled          Boolean  @default(false)
+  tipped            Boolean  @default(false)
+  connectionIssues  Boolean  @default(false)
+  breakdowns        String?
+  quickNotes        String[]
+  notes             String?
+  confidence        Float    @default(1)
+  synced            Boolean  @default(false)
+  match             Match    @relation(fields: [matchId], references: [id], onDelete: Cascade)
+  team              Team     @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+}
+
+model PitScoutEntry {
+  id                String   @id @default(cuid())
+  eventId           String
+  teamId            String
+  scoutId           String?
+  drivetrain        String
+  weightLbs         Float?
+  frameLengthIn     Float?
+  frameWidthIn      Float?
+  mechanisms        String[]
+  climbAbility      String
+  scoringLevels     String[]
+  autoPaths         String[]
+  driveTeamComments String?
+  reliability       Int
+  repairNotes       String?
+  archetypes        String[]
+  team              Team     @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  photos            RobotPhoto[]
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+}
+
+model TeamMetric {
+  id                 String   @id @default(cuid())
+  eventId            String
+  teamId             String
+  matchesPlayed      Int
+  autoScore          Float
+  teleopScore        Float
+  endgameScore       Float
+  fuelAccuracy       Float
+  averageCycles      Float
+  climbSuccessRate   Float
+  defensiveImpact    Float
+  consistency        Float
+  reliability        Float
+  epaLikeRating      Float
+  eloRating          Float
+  oprEstimate        Float
+  confidence         Float
+  event              Event    @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  team               Team     @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  updatedAt          DateTime @updatedAt
+
+  @@unique([eventId, teamId])
+}
+
+model Picklist {
+  id          String   @id @default(cuid())
+  eventId     String
+  name        String
+  weights     Json
+  excluded    Int[]
+  tiers       Json
+  notes       String?
+  event       Event    @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model StrategyPlan {
+  id              String   @id @default(cuid())
+  eventId          String
+  matchId          String?
+  title            String
+  ourAlliance      Int[]
+  opponentAlliance Int[]
+  suggestedRoles   Json
+  predicted        Json
+  autoNotes        String?
+  defenseNotes     String?
+  riskWarnings     String[]
+  event            Event    @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+}
+
+model GameConfig {
+  id            String   @id @default(cuid())
+  eventId       String   @unique
+  gameName      String
+  season        Int
+  scoringFields Json
+  pointValues   Json
+  validations   Json
+  climbLevels   Json
+  quickNotes    String[]
+  event         Event    @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  updatedAt     DateTime @updatedAt
+}
+
+model RobotPhoto {
+  id          String         @id @default(cuid())
+  teamId      String
+  eventId     String
+  pitEntryId  String?
+  url         String
+  caption     String?
+  team        Team           @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  pitEntry    PitScoutEntry? @relation(fields: [pitEntryId], references: [id], onDelete: SetNull)
+  createdAt   DateTime       @default(now())
+}
