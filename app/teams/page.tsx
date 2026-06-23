@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { PageHeading } from "@/components/page-heading";
 import { event, matchEntries, pitEntries, teams } from "@/lib/sample-data";
 import { calculateTeamMetrics } from "@/lib/stats";
 
@@ -15,7 +16,7 @@ export default function TeamsPage() {
   return (
     <div className="space-y-5">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-        <div><h1 className="text-2xl font-bold">Team Database</h1><p className="text-sm text-muted-foreground">Profiles, pit notes, match history, photos, strengths, weaknesses, and strategy notes.</p></div>
+        <PageHeading className="flex-1" eyebrow="event intel" title="Team Database" description="Profiles, pit notes, match history, photos, strengths, weaknesses, and strategy notes." />
         <Input className="sm:max-w-xs" placeholder="Search team..." value={query} onChange={(event) => setQuery(event.target.value)} />
       </div>
       <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">

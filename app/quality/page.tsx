@@ -2,6 +2,7 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, Td, Th } from "@/components/ui/table";
+import { PageHeading } from "@/components/page-heading";
 import { event, matchEntries, teams } from "@/lib/sample-data";
 import { calculateTeamMetrics, detectQualityIssues } from "@/lib/stats";
 
@@ -11,7 +12,7 @@ export default function QualityPage() {
 
   return (
     <div className="space-y-5">
-      <div><h1 className="text-2xl font-bold">Data Quality Review</h1><p className="text-sm text-muted-foreground">Scout agreement checks, impossible values, outliers, missing data, and confidence scoring.</p></div>
+      <PageHeading eyebrow="trust the data" title="Data Quality Review" description="Scout agreement checks, impossible values, outliers, missing data, and confidence scoring." />
       <section className="grid gap-4 md:grid-cols-4">
         <Summary title="Duplicates" value={issues.duplicated.length} />
         <Summary title="Impossible" value={issues.impossible.length} />

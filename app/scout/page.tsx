@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import { PageHeading } from "@/components/page-heading";
 import { event, matches } from "@/lib/sample-data";
 import { getMatchEntries, getQueuedSyncCount, saveMatchEntry } from "@/lib/offline-store";
 import type { MatchScoutEntry } from "@/lib/types";
@@ -94,7 +95,7 @@ export default function ScoutPage() {
 
   return (
     <div className="space-y-4">
-      <div><h1 className="text-2xl font-bold">Match Scouting</h1><p className="text-sm text-muted-foreground">Offline-first mobile form. Queue: {queued} unsynced record(s).</p></div>
+      <PageHeading eyebrow="live collection" title="Match Scouting" description={`Offline-first mobile form. Queue: ${queued} unsynced record(s).`} />
       <Card>
         <CardContent className="grid gap-3 pt-4 sm:grid-cols-4">
           <div><Label>Match</Label><Select value={String(matchNumber)} onChange={(e) => setMatchNumber(Number(e.target.value))}>{matches.map((match) => <option key={match.id} value={match.number}>QM {match.number}</option>)}</Select></div>

@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import { PageHeading } from "@/components/page-heading";
 import { event, teams } from "@/lib/sample-data";
 import { savePitEntry } from "@/lib/offline-store";
 import type { PitScoutEntry } from "@/lib/types";
@@ -38,7 +39,7 @@ export default function PitPage() {
 
   return (
     <div className="space-y-4">
-      <div><h1 className="text-2xl font-bold">Pit Scouting</h1><p className="text-sm text-muted-foreground">Robot profile, mechanisms, photos, reliability, repair notes, and archetype tags.</p></div>
+      <PageHeading eyebrow="robot profile" title="Pit Scouting" description="Robot profile, mechanisms, photos, reliability, repair notes, and archetype tags." />
       <Card>
         <CardContent className="grid gap-3 pt-4 md:grid-cols-4">
           <div><Label>Team</Label><Select value={entry.teamNumber} onChange={(e) => set("teamNumber", Number(e.target.value))}>{teams.map((team) => <option key={team.number} value={team.number}>{team.number} · {team.name}</option>)}</Select></div>

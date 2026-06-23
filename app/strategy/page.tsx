@@ -7,6 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Select } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import { PageHeading } from "@/components/page-heading";
 import { event, matches, matchEntries, teams } from "@/lib/sample-data";
 import { calculateTeamMetrics, predictMatch } from "@/lib/stats";
 
@@ -29,7 +30,7 @@ export default function StrategyPage() {
   return (
     <div className="space-y-5">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-        <div><h1 className="text-2xl font-bold">Match Strategy Planner</h1><p className="text-sm text-muted-foreground">Alliance comparison, roles, predicted score, risks, auto notes, and defensive assignments.</p></div>
+        <PageHeading className="flex-1" eyebrow="match prep" title="Match Strategy Planner" description="Alliance comparison, roles, predicted score, risks, auto notes, and defensive assignments." />
         <div className="sm:w-48"><Label>Upcoming Match</Label><Select value={matchNumber} onChange={(event) => setMatchNumber(Number(event.target.value))}>{matches.map((item) => <option key={item.id} value={item.number}>QM {item.number}</option>)}</Select></div>
       </div>
       <section className="grid gap-4 lg:grid-cols-3">

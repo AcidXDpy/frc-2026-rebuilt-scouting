@@ -7,6 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { PageHeading } from "@/components/page-heading";
 import { event, matchEntries, teams } from "@/lib/sample-data";
 import { calculateTeamMetrics, weightedPickScore } from "@/lib/stats";
 import type { PickWeights } from "@/lib/types";
@@ -41,7 +42,7 @@ export default function PicklistPage() {
 
   return (
     <div className="space-y-5">
-      <div><h1 className="text-2xl font-bold">Picklist Builder</h1><p className="text-sm text-muted-foreground">Weighted formula, filters, do-not-pick list, tiers, and alliance selection notes.</p></div>
+      <PageHeading eyebrow="alliance selection" title="Picklist Builder" description="Weighted formula, filters, do-not-pick list, tiers, and alliance selection notes." />
       <section className="grid gap-4 lg:grid-cols-[360px_1fr]">
         <Card>
           <CardHeader><CardTitle>Formula Weights</CardTitle></CardHeader>

@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { BarChart3, ClipboardList, Database, Gauge, ListOrdered, Moon, Settings, ShieldCheck, Sun, Target, Users } from "lucide-react";
 import { useTheme } from "next-themes";
@@ -25,28 +26,29 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="min-h-screen">
-      <header className="sticky top-0 z-20 border-b bg-background/95 backdrop-blur">
+      <header className="sticky top-0 z-20 border-b border-primary/25 bg-[#050505]/95 text-white shadow-[0_12px_35px_rgba(0,0,0,0.35)] backdrop-blur">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3">
-          <Link href="/" className="flex min-w-0 items-center gap-3">
-            <div className="grid h-9 w-9 place-items-center rounded-md bg-primary text-sm font-black text-primary-foreground">26</div>
-            <div className="min-w-0">
-              <p className="truncate text-sm font-semibold">REBUILT Scouting</p>
-              <p className="truncate text-xs text-muted-foreground">Live competition command center</p>
+          <Link href="/" className="flex min-w-0 items-center gap-4">
+            <Image src="/team-logo.png" alt="M.O.R.T. team logo" width={426} height={97} priority className="h-9 w-auto max-w-[220px] object-contain sm:h-11" />
+            <div className="hidden min-w-0 border-l border-primary/35 pl-4 sm:block">
+              <p className="truncate text-sm font-semibold text-primary">REBUILT Scouting</p>
+              <p className="truncate text-xs text-zinc-400">Match intelligence console</p>
             </div>
           </Link>
-          <Button variant="outline" size="icon" onClick={() => setTheme(theme === "dark" ? "light" : "dark")} aria-label="Toggle theme">
+          <Button variant="outline" size="icon" className="border-primary/40 bg-black text-primary hover:bg-primary hover:text-black" onClick={() => setTheme(theme === "dark" ? "light" : "dark")} aria-label="Toggle theme">
             <Sun className="h-4 w-4 dark:hidden" />
             <Moon className="hidden h-4 w-4 dark:block" />
           </Button>
         </div>
-        <nav className="mx-auto flex max-w-7xl gap-1 overflow-x-auto px-2 pb-2">
+        <div className="gold-rule" />
+        <nav className="mx-auto flex max-w-7xl gap-1 overflow-x-auto px-2 py-2">
           {nav.map(({ href, label, icon: Icon }) => (
             <Link
               key={href}
               href={href}
               className={cn(
-                "flex min-w-fit items-center gap-2 rounded-md px-3 py-2 text-sm text-muted-foreground transition hover:bg-muted hover:text-foreground",
-                pathname === href && "bg-muted text-foreground"
+                "flex min-w-fit items-center gap-2 rounded-md px-3 py-2 text-sm text-zinc-400 transition hover:bg-white/10 hover:text-white",
+                pathname === href && "bg-primary text-black shadow-[0_0_20px_rgba(255,204,0,0.25)]"
               )}
             >
               <Icon className="h-4 w-4" />

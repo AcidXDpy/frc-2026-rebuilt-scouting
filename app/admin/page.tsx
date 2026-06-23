@@ -7,6 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { PageHeading } from "@/components/page-heading";
 import { event, matches, matchEntries, teams } from "@/lib/sample-data";
 import { exportCsv, parseCsv } from "@/lib/stats";
 
@@ -32,7 +33,7 @@ export default function AdminPage() {
 
   return (
     <div className="space-y-5">
-      <div><h1 className="text-2xl font-bold">Admin & Config</h1><p className="text-sm text-muted-foreground">Events, users, scout assignments, schedule import, TBA integration, game fields, and point values.</p></div>
+      <PageHeading eyebrow="system control" title="Admin & Config" description="Events, users, scout assignments, schedule import, TBA integration, game fields, and point values." />
       <section className="grid gap-4 lg:grid-cols-2">
         <Card>
           <CardHeader><CardTitle>Event Setup</CardTitle></CardHeader>
