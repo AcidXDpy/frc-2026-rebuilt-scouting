@@ -2,12 +2,12 @@ import { defaultGameConfig } from "@/lib/game-config";
 import type { Match, MatchScoutEntry, PitScoutEntry, Team } from "@/lib/types";
 
 export const event = {
-  id: "2026fma",
-  key: "2026fma",
-  name: "FIRST Mid-Atlantic REBUILT District",
-  location: "New Jersey / Pennsylvania / Delaware",
-  startsAt: "2026-03-06",
-  endsAt: "2026-03-08",
+  id: "2026fma-dcmp",
+  key: "2026fma-dcmp",
+  name: "FIRST Mid-Atlantic District Championship 2026",
+  location: "Lehigh University - Stabler Arena, Bethlehem, PA",
+  startsAt: "2026-04-15",
+  endsAt: "2026-04-18",
   gameConfig: defaultGameConfig
 };
 
@@ -21,7 +21,7 @@ const team = (number: number, name: string, city: string, state: string): Team =
   strategyNotes: "Collect event-specific match and pit data before assigning a final role."
 });
 
-export const teams: Team[] = [
+const allFmaTeams: Team[] = [
   { ...team(11, "MORT", "Flanders", "New Jersey"), strengths: ["home-team familiarity", "driver practice", "systems knowledge"], weaknesses: ["verify 2026 robot data at event"], strategyNotes: "Primary team profile. Keep pit notes, match clips, and reliability flags current for drive-team planning." },
   team(25, "Raider Robotix", "North Brunswick", "New Jersey"),
   team(41, "RoboWarriors", "Warren", "New Jersey"),
@@ -167,12 +167,115 @@ export const teams: Team[] = [
   team(11366, "Red Devil's Redemption", "West Grove", "Pennsylvania")
 ];
 
+type FmaDcmpRanking = {
+  rank: number;
+  teamNumber: number;
+  rankingScore: number;
+  avgMatch: number;
+  avgAutoFuel: number;
+  avgTower: number;
+  record: string;
+  played: number;
+  rankingPoints: number;
+};
+
+export const fmaDcmpRankings: FmaDcmpRanking[] = [
+  { rank: 1, teamNumber: 316, rankingScore: 4.50, avgMatch: 437.17, avgAutoFuel: 98.17, avgTower: 0.00, record: "11-1-0", played: 12, rankingPoints: 54 },
+  { rank: 2, teamNumber: 2539, rankingScore: 4.08, avgMatch: 400.00, avgAutoFuel: 62.75, avgTower: 2.08, record: "9-3-0", played: 12, rankingPoints: 49 },
+  { rank: 3, teamNumber: 484, rankingScore: 4.00, avgMatch: 366.33, avgAutoFuel: 73.67, avgTower: 0.00, record: "10-2-0", played: 12, rankingPoints: 48 },
+  { rank: 4, teamNumber: 1403, rankingScore: 3.75, avgMatch: 375.50, avgAutoFuel: 71.92, avgTower: 2.08, record: "9-3-0", played: 12, rankingPoints: 45 },
+  { rank: 5, teamNumber: 3314, rankingScore: 3.58, avgMatch: 307.33, avgAutoFuel: 65.25, avgTower: 2.92, record: "10-2-0", played: 12, rankingPoints: 43 },
+  { rank: 6, teamNumber: 341, rankingScore: 3.58, avgMatch: 302.58, avgAutoFuel: 51.92, avgTower: 3.33, record: "10-2-0", played: 12, rankingPoints: 43 },
+  { rank: 7, teamNumber: 1676, rankingScore: 3.50, avgMatch: 332.75, avgAutoFuel: 78.33, avgTower: 1.25, record: "9-3-0", played: 12, rankingPoints: 42 },
+  { rank: 8, teamNumber: 8513, rankingScore: 3.42, avgMatch: 366.17, avgAutoFuel: 86.17, avgTower: 2.92, record: "8-4-0", played: 12, rankingPoints: 41 },
+  { rank: 9, teamNumber: 5895, rankingScore: 3.42, avgMatch: 339.17, avgAutoFuel: 75.50, avgTower: 2.92, record: "9-3-0", played: 12, rankingPoints: 41 },
+  { rank: 10, teamNumber: 11, rankingScore: 3.33, avgMatch: 324.92, avgAutoFuel: 57.67, avgTower: 2.92, record: "9-3-0", played: 12, rankingPoints: 40 },
+  { rank: 11, teamNumber: 9094, rankingScore: 3.33, avgMatch: 317.75, avgAutoFuel: 53.75, avgTower: 1.67, record: "9-3-0", played: 12, rankingPoints: 40 },
+  { rank: 12, teamNumber: 1089, rankingScore: 3.17, avgMatch: 322.75, avgAutoFuel: 64.58, avgTower: 0.83, record: "8-4-0", played: 12, rankingPoints: 38 },
+  { rank: 13, teamNumber: 1640, rankingScore: 3.17, avgMatch: 321.08, avgAutoFuel: 64.00, avgTower: 1.67, record: "8-4-0", played: 12, rankingPoints: 38 },
+  { rank: 14, teamNumber: 272, rankingScore: 3.08, avgMatch: 314.25, avgAutoFuel: 70.50, avgTower: 0.83, record: "8-4-0", played: 12, rankingPoints: 37 },
+  { rank: 15, teamNumber: 5401, rankingScore: 3.08, avgMatch: 288.42, avgAutoFuel: 50.75, avgTower: 1.67, record: "9-3-0", played: 12, rankingPoints: 37 },
+  { rank: 16, teamNumber: 103, rankingScore: 3.00, avgMatch: 344.00, avgAutoFuel: 68.67, avgTower: 0.83, record: "7-5-0", played: 12, rankingPoints: 36 },
+  { rank: 17, teamNumber: 3637, rankingScore: 3.00, avgMatch: 308.75, avgAutoFuel: 61.42, avgTower: 0.00, record: "8-4-0", played: 12, rankingPoints: 36 },
+  { rank: 18, teamNumber: 1218, rankingScore: 2.83, avgMatch: 314.42, avgAutoFuel: 59.92, avgTower: 1.25, record: "7-5-0", played: 12, rankingPoints: 34 },
+  { rank: 19, teamNumber: 1391, rankingScore: 2.83, avgMatch: 309.67, avgAutoFuel: 61.67, avgTower: 0.00, record: "7-5-0", played: 12, rankingPoints: 34 },
+  { rank: 20, teamNumber: 5438, rankingScore: 2.75, avgMatch: 266.75, avgAutoFuel: 56.67, avgTower: 2.92, record: "8-4-0", played: 12, rankingPoints: 33 },
+  { rank: 21, teamNumber: 555, rankingScore: 2.67, avgMatch: 266.17, avgAutoFuel: 56.92, avgTower: 2.92, record: "7-5-0", played: 12, rankingPoints: 32 },
+  { rank: 22, teamNumber: 193, rankingScore: 2.58, avgMatch: 318.67, avgAutoFuel: 51.67, avgTower: 0.83, record: "6-6-0", played: 12, rankingPoints: 31 },
+  { rank: 23, teamNumber: 75, rankingScore: 2.58, avgMatch: 232.33, avgAutoFuel: 46.25, avgTower: 0.00, record: "8-4-0", played: 12, rankingPoints: 31 },
+  { rank: 24, teamNumber: 6921, rankingScore: 2.50, avgMatch: 284.08, avgAutoFuel: 49.50, avgTower: 0.83, record: "7-5-0", played: 12, rankingPoints: 30 },
+  { rank: 25, teamNumber: 486, rankingScore: 2.50, avgMatch: 232.33, avgAutoFuel: 39.17, avgTower: 5.00, record: "8-4-0", played: 12, rankingPoints: 30 },
+  { rank: 26, teamNumber: 365, rankingScore: 2.33, avgMatch: 277.42, avgAutoFuel: 51.83, avgTower: 2.08, record: "6-6-0", played: 12, rankingPoints: 28 },
+  { rank: 27, teamNumber: 2607, rankingScore: 2.25, avgMatch: 256.08, avgAutoFuel: 50.42, avgTower: 1.25, record: "6-6-0", played: 12, rankingPoints: 27 },
+  { rank: 28, teamNumber: 10993, rankingScore: 2.25, avgMatch: 241.92, avgAutoFuel: 47.25, avgTower: 2.08, record: "7-5-0", played: 12, rankingPoints: 27 },
+  { rank: 29, teamNumber: 2590, rankingScore: 2.17, avgMatch: 285.08, avgAutoFuel: 61.25, avgTower: 0.00, record: "5-7-0", played: 12, rankingPoints: 26 },
+  { rank: 30, teamNumber: 4285, rankingScore: 2.17, avgMatch: 283.92, avgAutoFuel: 44.92, avgTower: 2.08, record: "6-6-0", played: 12, rankingPoints: 26 },
+  { rank: 31, teamNumber: 293, rankingScore: 2.17, avgMatch: 264.83, avgAutoFuel: 54.75, avgTower: 0.00, record: "6-6-0", played: 12, rankingPoints: 26 },
+  { rank: 32, teamNumber: 7045, rankingScore: 2.17, avgMatch: 242.92, avgAutoFuel: 52.08, avgTower: 2.08, record: "6-6-0", played: 12, rankingPoints: 26 },
+  { rank: 33, teamNumber: 10070, rankingScore: 2.08, avgMatch: 266.00, avgAutoFuel: 56.17, avgTower: 17.08, record: "5-7-0", played: 12, rankingPoints: 25 },
+  { rank: 34, teamNumber: 1807, rankingScore: 2.08, avgMatch: 236.33, avgAutoFuel: 50.25, avgTower: 3.75, record: "6-6-0", played: 12, rankingPoints: 25 },
+  { rank: 35, teamNumber: 1168, rankingScore: 2.08, avgMatch: 216.50, avgAutoFuel: 51.08, avgTower: 2.92, record: "7-5-0", played: 12, rankingPoints: 25 },
+  { rank: 36, teamNumber: 8706, rankingScore: 2.00, avgMatch: 305.17, avgAutoFuel: 62.67, avgTower: 2.08, record: "4-8-0", played: 12, rankingPoints: 24 },
+  { rank: 37, teamNumber: 423, rankingScore: 2.00, avgMatch: 232.92, avgAutoFuel: 35.50, avgTower: 0.00, record: "5-7-0", played: 12, rankingPoints: 24 },
+  { rank: 38, teamNumber: 8075, rankingScore: 2.00, avgMatch: 223.25, avgAutoFuel: 48.92, avgTower: 0.83, record: "6-6-0", played: 12, rankingPoints: 24 },
+  { rank: 39, teamNumber: 25, rankingScore: 1.92, avgMatch: 241.08, avgAutoFuel: 49.25, avgTower: 0.83, record: "6-6-0", played: 12, rankingPoints: 23 },
+  { rank: 40, teamNumber: 56, rankingScore: 1.92, avgMatch: 215.17, avgAutoFuel: 39.75, avgTower: 1.67, record: "6-6-0", played: 12, rankingPoints: 23 },
+  { rank: 41, teamNumber: 303, rankingScore: 1.83, avgMatch: 244.92, avgAutoFuel: 52.33, avgTower: 0.00, record: "5-7-0", played: 12, rankingPoints: 22 },
+  { rank: 42, teamNumber: 10157, rankingScore: 1.83, avgMatch: 216.83, avgAutoFuel: 36.75, avgTower: 0.83, record: "6-6-0", played: 12, rankingPoints: 22 },
+  { rank: 43, teamNumber: 5181, rankingScore: 1.75, avgMatch: 264.50, avgAutoFuel: 48.33, avgTower: 3.75, record: "5-7-0", played: 12, rankingPoints: 21 },
+  { rank: 44, teamNumber: 2016, rankingScore: 1.75, avgMatch: 218.33, avgAutoFuel: 35.58, avgTower: 1.25, record: "5-7-0", played: 12, rankingPoints: 21 },
+  { rank: 45, teamNumber: 222, rankingScore: 1.67, avgMatch: 249.00, avgAutoFuel: 52.42, avgTower: 2.50, record: "4-8-0", played: 12, rankingPoints: 20 },
+  { rank: 46, teamNumber: 223, rankingScore: 1.67, avgMatch: 238.25, avgAutoFuel: 38.58, avgTower: 0.83, record: "5-7-0", played: 12, rankingPoints: 20 },
+  { rank: 47, teamNumber: 10918, rankingScore: 1.58, avgMatch: 208.25, avgAutoFuel: 40.42, avgTower: 10.00, record: "5-7-0", played: 12, rankingPoints: 19 },
+  { rank: 48, teamNumber: 1923, rankingScore: 1.50, avgMatch: 227.25, avgAutoFuel: 50.42, avgTower: 1.25, record: "4-8-0", played: 12, rankingPoints: 18 },
+  { rank: 49, teamNumber: 9027, rankingScore: 1.50, avgMatch: 194.50, avgAutoFuel: 42.67, avgTower: 0.00, record: "4-8-0", played: 12, rankingPoints: 18 },
+  { rank: 50, teamNumber: 9015, rankingScore: 1.50, avgMatch: 173.00, avgAutoFuel: 25.33, avgTower: 1.25, record: "5-7-0", played: 12, rankingPoints: 18 },
+  { rank: 51, teamNumber: 708, rankingScore: 1.42, avgMatch: 230.58, avgAutoFuel: 39.42, avgTower: 4.58, record: "4-8-0", played: 12, rankingPoints: 17 },
+  { rank: 52, teamNumber: 1712, rankingScore: 1.42, avgMatch: 205.75, avgAutoFuel: 43.42, avgTower: 0.00, record: "4-8-0", played: 12, rankingPoints: 17 },
+  { rank: 53, teamNumber: 4575, rankingScore: 1.42, avgMatch: 198.33, avgAutoFuel: 38.33, avgTower: 1.25, record: "4-8-0", played: 12, rankingPoints: 17 },
+  { rank: 54, teamNumber: 433, rankingScore: 1.33, avgMatch: 225.75, avgAutoFuel: 33.75, avgTower: 0.00, record: "3-9-0", played: 12, rankingPoints: 16 },
+  { rank: 55, teamNumber: 10584, rankingScore: 1.33, avgMatch: 194.42, avgAutoFuel: 41.25, avgTower: 8.75, record: "4-8-0", played: 12, rankingPoints: 16 },
+  { rank: 56, teamNumber: 10979, rankingScore: 1.33, avgMatch: 190.08, avgAutoFuel: 33.08, avgTower: 0.83, record: "4-8-0", played: 12, rankingPoints: 16 },
+  { rank: 57, teamNumber: 7587, rankingScore: 1.33, avgMatch: 175.83, avgAutoFuel: 34.17, avgTower: 0.00, record: "4-8-0", played: 12, rankingPoints: 16 },
+  { rank: 58, teamNumber: 41, rankingScore: 1.25, avgMatch: 218.75, avgAutoFuel: 37.83, avgTower: 0.00, record: "3-9-0", played: 12, rankingPoints: 15 },
+  { rank: 59, teamNumber: 1672, rankingScore: 1.17, avgMatch: 224.33, avgAutoFuel: 40.00, avgTower: 0.00, record: "3-9-0", played: 12, rankingPoints: 14 },
+  { rank: 60, teamNumber: 427, rankingScore: 1.17, avgMatch: 202.67, avgAutoFuel: 43.08, avgTower: 0.00, record: "3-9-0", played: 12, rankingPoints: 14 },
+  { rank: 61, teamNumber: 5113, rankingScore: 1.17, avgMatch: 199.25, avgAutoFuel: 40.58, avgTower: 0.00, record: "3-9-0", played: 12, rankingPoints: 14 },
+  { rank: 62, teamNumber: 8117, rankingScore: 1.08, avgMatch: 204.00, avgAutoFuel: 39.92, avgTower: 3.75, record: "4-8-0", played: 12, rankingPoints: 13 },
+  { rank: 63, teamNumber: 7110, rankingScore: 0.92, avgMatch: 157.25, avgAutoFuel: 35.08, avgTower: 0.00, record: "3-9-0", played: 12, rankingPoints: 11 },
+  { rank: 64, teamNumber: 9416, rankingScore: 0.83, avgMatch: 204.00, avgAutoFuel: 46.83, avgTower: 4.17, record: "2-10-0", played: 12, rankingPoints: 10 },
+  { rank: 65, teamNumber: 10949, rankingScore: 0.83, avgMatch: 190.58, avgAutoFuel: 37.83, avgTower: 1.67, record: "2-10-0", played: 12, rankingPoints: 10 },
+  { rank: 66, teamNumber: 2554, rankingScore: 0.83, avgMatch: 171.67, avgAutoFuel: 39.00, avgTower: 2.92, record: "2-10-0", played: 12, rankingPoints: 10 }
+];
+
+const teamByNumber = new Map(allFmaTeams.map((item) => [item.number, item]));
+
+export const teams: Team[] = fmaDcmpRankings.map((ranking) => {
+  const base = teamByNumber.get(ranking.teamNumber) ?? team(ranking.teamNumber, `Team ${ranking.teamNumber}`, "Unknown", "Unknown");
+  const strengths = [
+    ranking.rank <= 16 ? "championship top-tier ranking" : ranking.rank <= 33 ? "playoff bubble profile" : "event data available",
+    ranking.avgAutoFuel >= 60 ? "strong auto fuel output" : "auto fuel needs scout verification",
+    ranking.avgTower >= 3 ? "notable Tower contribution" : "Tower role needs confirmation"
+  ];
+  const weaknesses = [
+    ranking.rank > 48 ? "lower qualification ranking" : "verify role fit with live scouting",
+    ranking.avgTower === 0 ? "no recorded Tower average" : "Tower timing should be validated"
+  ];
+
+  return {
+    ...base,
+    strengths,
+    weaknesses,
+    strategyNotes: `FMA DCMP rank ${ranking.rank}/66, ${ranking.record}, ${ranking.rankingPoints} RP. Avg match ${ranking.avgMatch}, avg auto fuel ${ranking.avgAutoFuel}, avg Tower ${ranking.avgTower}.`
+  };
+});
+
 export const matches: Match[] = [
-  { id: "qm1", number: 1, time: "2026-03-06T09:10:00-05:00", red: [11, 25, 56], blue: [75, 102, 303], redScore: 116, blueScore: 108 },
-  { id: "qm2", number: 2, time: "2026-03-06T09:22:00-05:00", red: [193, 430, 2590], blue: [341, 365, 708], redScore: 121, blueScore: 129 },
-  { id: "qm3", number: 3, time: "2026-03-06T09:34:00-05:00", red: [11, 103, 1403], blue: [1676, 1923, 2016], redScore: 134, blueScore: 126 },
-  { id: "qm4", number: 4, time: "2026-03-06T09:46:00-05:00", red: [272, 293, 1089], blue: [2590, 3314, 5895], redScore: 112, blueScore: 137 },
-  { id: "qm5", number: 5, time: "2026-03-06T09:58:00-05:00", red: [11, 25, 193], blue: [341, 2590, 1676] }
+  { id: "qm1", number: 1, time: "2026-04-15T09:10:00-04:00", red: [316, 2539, 484], blue: [1403, 3314, 341], redScore: 152, blueScore: 146 },
+  { id: "qm2", number: 2, time: "2026-04-15T09:22:00-04:00", red: [1676, 8513, 5895], blue: [11, 9094, 1089], redScore: 143, blueScore: 138 },
+  { id: "qm3", number: 3, time: "2026-04-15T09:34:00-04:00", red: [1640, 272, 5401], blue: [103, 3637, 1218], redScore: 133, blueScore: 129 },
+  { id: "qm4", number: 4, time: "2026-04-15T09:46:00-04:00", red: [1391, 5438, 555], blue: [193, 75, 6921], redScore: 118, blueScore: 112 },
+  { id: "qm5", number: 5, time: "2026-04-15T09:58:00-04:00", red: [11, 316, 341], blue: [2539, 484, 1676] }
 ];
 
 const entry = (matchNumber: number, teamNumber: number, alliance: "red" | "blue", auto: [number, number], tele: [number, number], climb: string, defense: number, skill: number, cycles: number[], flags: Partial<MatchScoutEntry> = {}): MatchScoutEntry => ({
@@ -207,32 +310,46 @@ const entry = (matchNumber: number, teamNumber: number, alliance: "red" | "blue"
   ...flags
 });
 
-export const matchEntries: MatchScoutEntry[] = [
-  entry(1, 11, "red", [6, 8], [24, 32], "High Tower", 2, 5, [17, 18, 18, 19]),
-  entry(1, 25, "red", [4, 7], [19, 27], "Mid Tower", 3, 4, [21, 22, 23]),
-  entry(1, 56, "red", [3, 5], [13, 22], "High Tower", 2, 4, [26, 25, 24]),
-  entry(1, 75, "blue", [5, 7], [20, 29], "Mid Tower", 3, 4, [20, 21, 22]),
-  entry(1, 102, "blue", [4, 6], [18, 25], "High Tower", 2, 4, [22, 23, 21]),
-  entry(1, 303, "blue", [6, 8], [21, 30], "Park", 4, 4, [19, 20, 21]),
-  entry(2, 193, "red", [4, 6], [16, 24], "Mid Tower", 3, 4, [23, 24, 25]),
-  entry(2, 430, "red", [3, 5], [14, 22], "Low Tower", 2, 3, [26, 28]),
-  entry(2, 2590, "red", [8, 10], [27, 34], "High Tower", 3, 5, [15, 16, 17, 16]),
-  entry(2, 341, "blue", [7, 9], [26, 33], "Traversal Tower", 2, 5, [16, 17, 16, 18]),
-  entry(2, 365, "blue", [6, 8], [22, 31], "High Tower", 2, 4, [18, 19, 20, 18]),
-  entry(2, 708, "blue", [4, 6], [17, 24], "Mid Tower", 3, 4, [22, 23, 24]),
-  entry(3, 11, "red", [7, 9], [28, 35], "High Tower", 2, 5, [16, 17, 16, 17, 18]),
-  entry(3, 103, "red", [5, 7], [20, 28], "Mid Tower", 2, 4, [21, 22, 22]),
-  entry(3, 1403, "red", [4, 6], [18, 26], "High Tower", 3, 4, [22, 21, 23]),
-  entry(3, 1676, "blue", [7, 10], [25, 33], "High Tower", 2, 5, [17, 18, 17, 19]),
-  entry(3, 1923, "blue", [6, 8], [23, 31], "Mid Tower", 2, 5, [18, 19, 18, 20]),
-  entry(3, 2016, "blue", [3, 5], [16, 24], "Low Tower", 4, 4, [24, 25, 26]),
-  entry(4, 272, "red", [5, 7], [19, 27], "Mid Tower", 3, 4, [21, 22, 23]),
-  entry(4, 293, "red", [4, 6], [17, 26], "High Tower", 2, 4, [23, 22, 24]),
-  entry(4, 1089, "red", [5, 8], [20, 29], "Park", 3, 4, [21, 22, 22]),
-  entry(4, 2590, "blue", [9, 11], [30, 37], "High Tower", 3, 5, [14, 15, 16, 15], { fouls: 1 }),
-  entry(4, 3314, "blue", [6, 8], [24, 32], "Traversal Tower", 2, 5, [17, 18, 18, 17]),
-  entry(4, 5895, "blue", [4, 6], [18, 25], "Mid Tower", 2, 4, [22, 23, 24])
-];
+const climbLevelFor = (avgTower: number) => {
+  if (avgTower >= 10) return "Traversal Tower";
+  if (avgTower >= 3) return "High Tower";
+  if (avgTower >= 1) return "Mid Tower";
+  return "Park";
+};
+
+const rankingEntry = (ranking: FmaDcmpRanking, rankIndex: number, sample: number) => {
+  const matchNumber = rankIndex * 3 + sample + 1;
+  const autoMade = Math.max(1, Math.round(ranking.avgAutoFuel / 8) + sample - 1);
+  const teleMade = Math.max(6, Math.round((ranking.avgMatch - ranking.avgAutoFuel) / 12) + (2 - sample));
+  const defense = Math.max(1, Math.min(5, 6 - Math.ceil(ranking.rank / 16)));
+  const driverSkill = Math.max(2, Math.min(5, 6 - Math.ceil(ranking.rank / 18)));
+  const cycleBase = Math.max(12, Math.round(30 - ranking.avgMatch / 24));
+  const alliance = (rankIndex + sample) % 2 === 0 ? "red" : "blue";
+
+  return entry(
+    matchNumber,
+    ranking.teamNumber,
+    alliance,
+    [autoMade, autoMade + 2],
+    [teleMade, teleMade + 5],
+    climbLevelFor(ranking.avgTower),
+    defense,
+    driverSkill,
+    [cycleBase, cycleBase + 1, cycleBase + 2, cycleBase + sample],
+    {
+      id: `dcmp-${ranking.teamNumber}-${sample + 1}`,
+      matchId: `dcmp-qm-${matchNumber}`,
+      fouls: ranking.rank > 50 && sample === 1 ? 1 : 0,
+      quickNotes: [
+        ranking.rank <= 16 ? "DCMP top 16" : ranking.rank <= 33 ? "Playoff bubble" : "Needs validation",
+        ranking.avgTower >= 3 ? "Tower points" : "Tower unknown"
+      ],
+      notes: `Generated baseline from TBA FMA DCMP ranking row: rank ${ranking.rank}, ${ranking.record}, avg match ${ranking.avgMatch}.`
+    }
+  );
+};
+
+export const matchEntries: MatchScoutEntry[] = fmaDcmpRankings.flatMap((ranking, index) => [0, 1, 2].map((sample) => rankingEntry(ranking, index, sample)));
 
 export const pitEntries: PitScoutEntry[] = teams.map((team, index) => ({
   id: `pit-${team.number}`,
