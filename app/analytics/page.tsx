@@ -61,7 +61,7 @@ export default function AnalyticsPage() {
         <CardHeader><CardTitle>Rankings</CardTitle></CardHeader>
         <CardContent className="overflow-x-auto">
           <Table>
-            <thead><tr><Th>Team</Th><Th>EPA</Th><Th>OPR</Th><Th>Fuel Acc.</Th><Th>Cycles</Th><Th>Climb</Th><Th>Defense</Th><Th>Reliability</Th><Th>Confidence</Th></tr></thead>
+            <thead><tr><Th>Team</Th><Th>EPA</Th><Th>OPR CSV</Th><Th>Fuel Acc.</Th><Th>Cycles</Th><Th>Climb</Th><Th>Defense</Th><Th>Reliability</Th><Th>Confidence</Th></tr></thead>
             <tbody>
               {metrics.map((metric) => (
                 <tr key={metric.teamNumber} className="border-t">

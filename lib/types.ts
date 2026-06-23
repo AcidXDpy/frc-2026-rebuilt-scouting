@@ -33,6 +33,17 @@ export type Team = {
   strengths: string[];
   weaknesses: string[];
   strategyNotes: string;
+  eventStats?: {
+    rank?: number;
+    rankingScore?: number;
+    avgMatch?: number;
+    avgAutoFuel?: number;
+    avgTower?: number;
+    record?: string;
+    played?: number;
+    rankingPoints?: number;
+    opr?: number;
+  };
 };
 
 export type Match = {

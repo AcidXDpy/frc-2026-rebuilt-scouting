@@ -26,6 +26,7 @@ export function calculateTeamMetrics(teams: Team[], entries: MatchScoutEntry[], 
     const confidence = clamp(teamEntries.length / 6, 0.25, 1);
     const scoring = avg(scores.map((score) => score.auto + score.teleop));
     const defenseAdjusted = scoring * (1 - avg(teamEntries.map((entry) => entry.defenseRating)) * 0.015);
+    const importedOpr = team.eventStats?.opr;
     const epaLike = defenseAdjusted * 0.62 + avg(scores.map((score) => score.endgame)) * 0.23 + reliability * 0.15;
     const ciSpread = teamEntries.length > 1 ? 1.96 * standardDeviation(totals) / Math.sqrt(teamEntries.length) : 14;
     const confidenceInterval: [number, number] = [round(avg(totals) - ciSpread), round(avg(totals) + ciSpread)];
@@ -43,9 +44,9 @@ export function calculateTeamMetrics(teams: Team[], entries: MatchScoutEntry[], 
       defensiveImpact: round(avg(teamEntries.map((entry) => entry.defenseRating)) * 20),
       consistency: round(consistency),
       reliability: round(reliability),
-      epaLikeRating: round(epaLike),
-      eloRating: round(1500 + (epaLike - 55) * 9 + consistency),
-      oprEstimate: round(avg(totals)),
+      epaLikeRating: round(importedOpr !== undefined ? epaLike * 0.55 + importedOpr * 0.45 : epaLike),
+      eloRating: round(1500 + ((importedOpr ?? epaLike) - 55) * 9 + consistency),
+      oprEstimate: round(importedOpr ?? avg(totals)),
       confidence: round(confidence * 100),
       confidenceInterval,
       disabledRate: round(disabledRate * 100)
