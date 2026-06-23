@@ -14,7 +14,7 @@ import type { PickWeights } from "@/lib/types";
 
 export default function PicklistPage() {
   const [weights, setWeights] = useState<PickWeights>({ scoringWeight: 1.1, climbWeight: 0.9, reliabilityWeight: 0.55, defenseWeight: 0.4, consistencyWeight: 0.5, autoWeight: 0.7 });
-  const [excluded, setExcluded] = useState<number[]>([2767]);
+  const [excluded, setExcluded] = useState<number[]>([]);
   const [manualOrder, setManualOrder] = useState<number[]>([]);
   const [notes, setNotes] = useState("Confirm spare parts and climb timing before final lock.");
   const metrics = useMemo(() => calculateTeamMetrics(teams, matchEntries, event.gameConfig), []);
