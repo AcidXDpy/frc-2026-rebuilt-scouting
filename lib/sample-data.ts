@@ -405,6 +405,9 @@ const rankingEntry = (ranking: FmaDcmpRanking, rankIndex: number, sample: number
   const driverSkill = Math.max(2, Math.min(5, 6 - Math.ceil(ranking.rank / 18)));
   const cycleBase = Math.max(12, Math.round(30 - ranking.avgMatch / 24));
   const alliance = (rankIndex + sample) % 2 === 0 ? "red" : "blue";
+  const cycleCount = Math.max(2, Math.min(6, Math.round(ranking.avgMatch / 85) + ((ranking.rank + sample) % 2)));
+  const cycles = Array.from({ length: cycleCount }, (_, index) => cycleBase + index + ((ranking.rank + sample) % 4));
+  const hasReliabilityIssue = ranking.rank > 48 && sample === 2;
 
   return entry(
     matchNumber,
@@ -415,11 +418,14 @@ const rankingEntry = (ranking: FmaDcmpRanking, rankIndex: number, sample: number
     climbLevelFor(ranking.avgTower),
     defense,
     driverSkill,
-    [cycleBase, cycleBase + 1, cycleBase + 2, cycleBase + sample],
+    cycles,
     {
       id: `dcmp-${ranking.teamNumber}-${sample + 1}`,
       matchId: `dcmp-qm-${matchNumber}`,
       fouls: ranking.rank > 50 && sample === 1 ? 1 : 0,
+      disabled: hasReliabilityIssue && ranking.rank > 60,
+      connectionIssues: hasReliabilityIssue && ranking.rank > 55,
+      breakdowns: hasReliabilityIssue ? "Intermittent reliability flag generated from low DCMP rank sample." : "",
       quickNotes: [
         ranking.rank <= 16 ? "DCMP top 16" : ranking.rank <= 33 ? "Playoff bubble" : "Needs validation",
         ranking.avgTower >= 3 ? "Tower points" : "Tower unknown"

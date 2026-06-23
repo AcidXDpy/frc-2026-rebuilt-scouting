@@ -66,7 +66,7 @@ Configurable values include:
 
 ## Advanced Stats
 
-Stats are implemented in `lib/stats.ts`.
+Stats are implemented in `lib/stats.ts`, `lib/advanced-metrics.ts`, and `lib/models/*`.
 
 - Per-match normalization separates auto, teleop, and endgame value.
 - EPA-like rating blends defense-adjusted scoring, endgame value, and reliability.
@@ -74,16 +74,24 @@ Stats are implemented in `lib/stats.ts`.
 - Reliability score penalizes disabled/tipped/connection/breakdown flags.
 - Confidence scales with sample size and generates a simple confidence interval.
 - Match prediction uses alliance phase totals, reliability, defensive impact, and role diversity synergy.
+- Advanced team metrics include adjusted EPA, reliability-adjusted EPA, OPR CSV, ceiling/floor, volatility, boom/bust risk, foul risk, breakdown risk, climb probability, scout agreement, and archetype clustering.
+- The model folder is intentionally "fake ML, real math": each model returns a prediction, confidence, positive factors, negative factors, explanation text, and feature weights. The UI can later swap these explainable formulas for trained models without changing page contracts.
+- Current models include Bayesian team strength, Elo-style rating, Monte Carlo match simulation, logistic win probability, alliance synergy, picklist value, defensive matchup, reliability, and upset risk.
 - Picklist score uses:
 
 ```txt
-total = scoringWeight * scoring
-      + climbWeight * climb
-      + reliabilityWeight * reliability
-      + defenseWeight * defense
-      + consistencyWeight * consistency
-      + autoWeight * auto
+PickValue =
+  0.30 * adjustedEPA
+  + 0.18 * reliability
+  + 0.14 * autoValue
+  + 0.12 * climbValue
+  + 0.10 * defenseValue
+  + 0.08 * consistency
+  + 0.08 * synergy
+  - 0.10 * riskPenalty
 ```
+
+The Analytics, Picklist, Strategy, and Quality pages use the FMA District Championship sample dataset plus imported OPR values. Generated baseline scouting data has intentional variation in cycles, reliability flags, scout agreement, and confidence so rankings do not collapse into identical rows.
 
 ## Data Flow
 

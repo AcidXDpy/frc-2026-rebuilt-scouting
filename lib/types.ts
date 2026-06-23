@@ -129,6 +129,102 @@ export type TeamMetric = {
   disabledRate: number;
 };
 
+export type TeamArchetype =
+  | "Elite carry bot"
+  | "High-volume scorer"
+  | "Efficient sniper"
+  | "Cycle merchant"
+  | "Climb specialist"
+  | "Defensive menace"
+  | "Low-risk support bot"
+  | "Volatile boom/bust bot"
+  | "Practice bot / avoid"
+  | "Data insufficient";
+
+export type TeamAdvancedMetrics = {
+  teamNumber: number;
+  teamName: string;
+  epa: number;
+  autoEpa: number;
+  teleopEpa: number;
+  endgameEpa: number;
+  adjustedEpa: number;
+  reliabilityAdjustedEpa: number;
+  opr: number;
+  dpr: number;
+  fuelAccuracy: number;
+  avgCycles: number;
+  cycleStdDev: number;
+  climbSuccessRate: number;
+  climbSuccessProbability: number;
+  defenseImpact: number;
+  foulRisk: number;
+  breakdownRisk: number;
+  consistency: number;
+  ceiling: number;
+  floor: number;
+  volatility: number;
+  confidence: number;
+  archetype: TeamArchetype;
+  archetypeExplanation: string;
+  trend: number[];
+  pickValue: number;
+  scoutAgreement: number;
+  scoutConfidenceScore: number;
+  boomBustRisk: number;
+  cycleEfficiency: number;
+  fuelAccuracyTrend: number[];
+};
+
+export type ModelFactor = {
+  label: string;
+  value: number | string;
+  weight?: number;
+};
+
+export type ModelOutput<TPrediction> = {
+  prediction: TPrediction;
+  confidence: number;
+  topPositiveFactors: ModelFactor[];
+  topNegativeFactors: ModelFactor[];
+  explanation: string;
+  featureWeights: Record<string, number>;
+};
+
+export type MatchPrediction = {
+  redTeams: number[];
+  blueTeams: number[];
+  redWinProb: number;
+  blueWinProb: number;
+  predictedRedScore: number;
+  predictedBlueScore: number;
+  upsetRisk: number;
+  decidingFactors: string[];
+  recommendedStrategy: string;
+  simulationSummary: {
+    simulations: number;
+    averageRedScore: number;
+    averageBlueScore: number;
+    redScoreDistribution: number[];
+    blueScoreDistribution: number[];
+    mostLikelyDecidingFactor: string;
+  };
+};
+
+export type AllianceSynergy = {
+  teams: number[];
+  score: number;
+  roleBalance: number;
+  autoCompatibility: number;
+  trafficRisk: number;
+  climbCompatibility: number;
+  defenseCoverage: number;
+  warnings: string[];
+  recommendedRoles: Record<number, string>;
+  idealStrategy: string;
+  backupStrategy: string;
+};
+
 export type PickWeights = {
   scoringWeight: number;
   climbWeight: number;
