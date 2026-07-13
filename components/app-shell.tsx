@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { BarChart3, ClipboardList, Database, Gauge, ListOrdered, Moon, Settings, ShieldCheck, Sun, Target, Users } from "lucide-react";
+import { BarChart3, BrainCircuit, ClipboardList, Database, Gauge, ListOrdered, Moon, Settings, ShieldCheck, Sun, Target, Users } from "lucide-react";
 import { useTheme } from "next-themes";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -14,6 +14,7 @@ const nav = [
   { href: "/pit", label: "Pit", icon: Database },
   { href: "/teams", label: "Teams", icon: Users },
   { href: "/analytics", label: "Analytics", icon: BarChart3 },
+  { href: "/ml", label: "ML Lab", icon: BrainCircuit },
   { href: "/picklist", label: "Picklist", icon: ListOrdered },
   { href: "/strategy", label: "Strategy", icon: Target },
   { href: "/quality", label: "Quality", icon: ShieldCheck },

@@ -15,6 +15,7 @@ A production-oriented, mobile-first scouting system for the 2026 FRC game concep
 - Picklist builder with weighted formula, tiers, exclusions, notes, and manual reordering
 - Match strategy planner with predicted score, alliance win probability, role suggestions, risks, and saved local plans
 - Data quality review for suspicious entries, impossible values, missing data, and confidence
+- ML Lab for feature importance, model leaderboard, KNN similar-team search, anomaly detection, what-if simulation, alliance optimization, and model drift checks
 - CSV export/import helpers and optional Blue Alliance API route
 
 ## Quick Start
@@ -97,6 +98,8 @@ The Analytics, Picklist, Strategy, and Quality pages use the FMA District Champi
 
 - `lib/sample-data.ts`: realistic event, teams, matches, pit entries, and match scouting entries
 - `lib/offline-store.ts`: browser storage and IndexedDB outbox for offline scouting
+- `lib/ml/*`: feature engineering, pseudo-trained model evaluation, anomaly detection, KNN similarity, what-if simulation, and alliance optimization
+- `scripts/scrape-statbotics.mjs`: optional public Statbotics JSON import helper. Run `pnpm data:statbotics 2026mrcmp` when the API is available, then review the generated `data/imports/*` files before wiring them into seed data.
 - `app/api/scouting/match/route.ts`: typed validation endpoint ready to connect to Prisma
 - `app/api/tba/event/[key]/route.ts`: optional TBA schedule import route
 - `prisma/schema.prisma`: production database models
